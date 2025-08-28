@@ -1,0 +1,9 @@
+body { font-family: Arial; background:#f5f5f5; margin:0; padding:0;}
+.container { width:90%; max-width:800px; margin:30px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+nav { display:flex; justify-content:space-between; align-items:center; background:#007bff; color:#fff; padding:10px 20px;}
+nav .nav-links a { color:#fff; text-decoration:none; margin-left:15px; }
+.product-item { background:#e7f3ff; padding:15px; border-radius:6px; margin-bottom:10px;}
+button { margin-right:5px; padding:5px 10px; border:none; border-radius:4px; cursor:pointer;}
+button:first-of-type { background:#4caf50; color:#fff;}
+button:last-of-type { background:#f44336; color:#fff;}
+.modal { display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; padding:20px; border:1px solid #ccc; z-index:1000; width:90%; max-width:400px; border-radius:8px;}

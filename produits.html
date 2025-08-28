@@ -30,8 +30,49 @@
     </div>
 
     <div class="container">
-        <h1>Produits</h1>
-        <p>Utilisez le menu à gauche pour naviguer entre les pages des produits.</p>
+        <h1>Liste des produits</h1>
+        <div id="produits-list">
+            <p>Chargement des produits...</p>
+        </div>
     </div>
+    <script>
+        // API Liste produits
+        async function fetchProduits() {
+            try {
+                const res = await fetch('http://localhost:3000/api/produits');
+                if (!res.ok) throw new Error('Erreur API');
+                const produits = await res.json();
+                if (!produits.length) {
+                    document.getElementById('produits-list').innerHTML = "<p>Aucun produit trouvé.</p>";
+                    return;
+                }
+                let html = `<table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Catégorie</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+                produits.forEach(p => {
+                    html += `<tr>
+                        <td>${p.nom}</td>
+                        <td>${p.description || ''}</td>
+                        <td>${p.categorie || ''}</td>
+                        <td>${p.prix} €</td>
+                        <td>${p.quantite}</td>
+                    </tr>`;
+                });
+                html += `</tbody></table>`;
+                document.getElementById('produits-list').innerHTML = html;
+            } catch (e) {
+                document.getElementById('produits-list').innerHTML = "<p style='color:red;'>Erreur de chargement des produits.</p>";
+            }
+        }
+        fetchProduits();
+    </script>
 </body>
 </html>

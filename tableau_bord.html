@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de bord</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord Global</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <img src="logo.png" alt="Logo" class="logo-image">
-            <span class="logo-name">Gestion Vente</span>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Accueil</a>
-            <a href="produits.html">Produits</a>
-            <a href="suivi_ventes.html">Suivi des ventes</a>
-            <a href="gestion_stock.html">Gestion de stock</a>
-            <a href="gestion_clients.html">Gestion de clients</a>
-            <a href="tableau_bord.html">Tableau de bord</a>
-        </div>
-    </nav>
-    <div class="container">
-        <h1>Tableau de bord</h1>
-        <p>Résumé des activités :</p>
-        <ul>
-            <li>Total des ventes : 500 €</li>
-            <li>Produits en stock : 80</li>
-            <li>Nombre de clients : 20</li>
-        </ul>
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="Logo" class="logo-image">
+      <span class="logo-name">Gestion Vente</span>
     </div>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="produits.html">Produits</a>
+      <a href="clients.html">Clients</a>
+      <a href="ventes.html">Ventes</a>
+      <a href="tableau_produits.html">Tableau Produits</a>
+      <a href="tableau_global.html">📊 Tableau Global</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>📈 Tableau de bord Global</h1>
+
+    <div id="resume">
+      <p>Chargement des statistiques globales...</p>
+    </div>
+
+    <h2>📦 Répartition des produits</h2>
+    <canvas id="produitsChart"></canvas>
+
+    <h2>👥 Nombre de clients par ville</h2>
+    <canvas id="clientsChart"></canvas>
+
+    <h2>💰 Évolution des ventes par mois</h2>
+    <canvas id="ventesChart"></canvas>
+
+    <h2>🏆 Top 5 produits les plus vendus</h2>
+    <canvas id="topProduitsChart"></canvas>
+  </div>
+
+  <script src="tableau.js"></script>
 </body>
 </html>

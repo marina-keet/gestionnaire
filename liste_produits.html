@@ -1,73 +1,57 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste de produits</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des produits</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <img src="logo.png" alt="Logo" class="logo-image">
-            <span class="logo-name">Gestion Vente</span>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Accueil</a>
-            <a href="produits.html">Produits</a>
-            <a href="suivi_ventes.html">Suivi des ventes</a>
-            <a href="gestion_stock.html">Gestion de stock</a>
-            <a href="gestion_clients.html">Gestion de clients</a>
-            <a href="tableau_bord.html">Tableau de bord</a>
-        </div>
-    </nav>
-
-    <!-- Menu latéral -->
-    <div class="sidebar">
-        <a href="nouveau_produit.html">Nouveau produit</a>
-        <a href="liste_produits.html">Liste de produits</a>
-        <a href="statistiques_produits.html">Statistiques des produits</a>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="Logo" class="logo-image">
+      <span class="logo-name">Gestion Vente</span>
     </div>
-
-    <div class="container">
-        <h1>Liste de produits</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <th>Catégorie</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody id="product-table-body">
-                <!-- Les produits ajoutés apparaîtront ici -->
-            </tbody>
-        </table>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="produits.html">Produits</a>
+      <a href="suivi_ventes.html">Suivi des ventes</a>
+      <a href="gestion_stock.html">Gestion de stock</a>
+      <a href="gestion_clients.html">Gestion de clients</a>
+      <a href="tableau_bord.html">Tableau de bord</a>
     </div>
+  </nav>
 
-    <script>
-        const productTableBody = document.getElementById('product-table-body');
+  <!-- Contenu principal -->
+  <div class="container">
+    <h1>Liste des produits</h1>
+    <div id="products-list">Chargement...</div>
+  </div>
 
-        // Exemple de fonction pour ajouter un produit avec une image
-        function addProductToTable(name, description, category, price, quantity, imageUrl) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${name}</td>
-                <td>${description}</td>
-                <td>${category}</td>
-                <td>${price} $</td>
-                <td>${quantity}</td>
-                <td><img src="${imageUrl}" alt="${name}" style="width: 50px; height: 50px; object-fit: cover;"></td>
-            `;
-            productTableBody.appendChild(row);
-        }
+  <!-- Modal édition -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h2>Modifier le produit</h2>
+      <form id="edit-form">
+        <input type="hidden" id="edit-id">
+        <label for="edit-nom">Nom :</label>
+        <input type="text" id="edit-nom" required>
+        <label for="edit-description">Description :</label>
+        <input type="text" id="edit-description">
+        <label for="edit-categorie">Catégorie :</label>
+        <input type="text" id="edit-categorie">
+        <label for="edit-prix">Prix (€) :</label>
+        <input type="number" id="edit-prix" required>
+        <label for="edit-quantite">Quantité :</label>
+        <input type="number" id="edit-quantite" required>
+        <br><br>
+        <button type="submit">Enregistrer</button>
+        <button type="button" id="closeModalBtn">Annuler</button>
+      </form>
+    </div>
+  </div>
 
-        // Exemple d'ajout de produits (à remplacer par des données dynamiques)
-        addProductToTable("Produit A", "Description A", "Électronique", 100, 10, "imageA.jpg");
-        addProductToTable("Produit B", "Description B", "Vêtements", 50, 20, "imageB.jpg");
-    </script>
+  <script src="liste_produits.js"></script>
 </body>
 </html>

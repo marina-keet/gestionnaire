@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .facture-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 2rem 2.5rem;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        .erp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .erp-header .erp-company {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .erp-header .erp-infos {
+            text-align: right;
+            color: #444;
+            font-size: 1rem;
+        }
+        .erp-facture-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+        .erp-facture-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        .erp-facture-meta .erp-client {
+            font-weight: bold;
+        }
+        .erp-facture-meta .erp-date {
+            color: #555;
+        }
+        .facture-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        .facture-table th, .facture-table td {
+            border: 1px solid #ddd;
+            padding: 0.7rem 1rem;
+            text-align: left;
+        }
+        .facture-table th {
+            background: #007bff;
+            color: #fff;
+        }
+        .facture-total {
+            text-align: right;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+        }
+        .facture-footer {
+            text-align: center;
+            color: #888;
+            margin-top: 2rem;
+        }
+        .erp-signature {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 1.1rem;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo" class="logo-image">
+            <span class="logo-name">Gestion Vente</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="produits.html">Produits</a>
+            <a href="suivi_ventes.html">Suivi des ventes</a>
+            <a href="gestion_stock.html">Gestion de stock</a>
+            <a href="gestion_clients.html">Gestion de clients</a>
+            <a href="tableau_bord.html">Tableau de bord</a>
+            <a href="vente.html">Vente</a>
+            <a href="facture.html">Facture</a>
+        </div>
+    </nav>
+    <div class="facture-container">
+        <div class="erp-header">
+            <div class="erp-company">
+                <img src="logo.png" alt="Logo" class="logo-image" style="vertical-align:middle;width:40px;height:40px;margin-right:10px;">
+                ERP Gestion Vente Pro
+            </div>
+            <div class="erp-infos">
+                <div>Adresse : 123 Rue du Commerce, Paris</div>
+                <div>Tél : 01 23 45 67 89</div>
+                <div>Email : contact@erpvente.com</div>
+            </div>
+        </div>
+        <div class="erp-facture-title">FACTURE</div>
+        <div class="erp-facture-meta">
+            <div class="erp-client">Client : <span id="facture-client">Jean Dupont</span></div>
+            <div class="erp-date">Date : <span id="facture-date"></span></div>
+        </div>
+        <table class="facture-table">
+            <thead>
+                <tr>
+                    <th>Article</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="facture-articles">
+                <!-- Les articles de la facture seront affichés ici -->
+            </tbody>
+        </table>
+        <div class="facture-total">
+            Total à payer : <span id="facture-total">0.00</span> $
+        </div>
+        <div class="erp-signature">
+            Signature Responsable : ______________________
+        </div>
+        <div class="facture-footer">
+            Merci pour votre confiance - Système ERP Gestion Vente Pro
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('facture-date').textContent = new Date().toLocaleDateString();
+            const articles = [
+                { nom: "Pain", prix: 2.50, quantite: 2 },
+                { nom: "Lait", prix: 1.50, quantite: 1 },
+                { nom: "Bananes", prix: 0.80, quantite: 5 }
+            ];
+            let total = 0;
+            const tbody = document.getElementById('facture-articles');
+            articles.forEach(a => {
+                const t = (a.prix * a.quantite);
+                total += t;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${a.nom}</td>
+                    <td>${a.prix.toFixed(2)} $</td>
+                    <td>${a.quantite}</td>
+                    <td>${t.toFixed(2)} $</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            document.getElementById('facture-total').textContent = total.toFixed(2);
+        });
+    </script>
+</body>
+</html>

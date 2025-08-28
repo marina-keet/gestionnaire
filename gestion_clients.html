@@ -21,31 +21,36 @@
             <a href="tableau_bord.html">Tableau de bord</a>
         </div>
     </nav>
+
     <div class="container">
-        <h1>Gestion de clients</h1>
-        <p>Gérez vos clients ici :</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Téléphone</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Exemple de données -->
-                <tr>
-                    <td>Client A</td>
-                    <td>clienta@example.com</td>
-                    <td>0123456789</td>
-                </tr>
-                <tr>
-                    <td>Client B</td>
-                    <td>clientb@example.com</td>
-                    <td>0987654321</td>
-                </tr>
-            </tbody>
-        </table>
+        <h1>Gestion des clients</h1>
+
+        <!-- Formulaire d'ajout d'un client -->
+        <form id="add-client-form">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" required>
+
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" required>
+
+            <label for="telephone">Téléphone :</label>
+            <input type="text" id="telephone" required>
+
+            <button type="submit">Ajouter le client</button>
+        </form>
+
+        <hr>
+
+        <!-- Liste des clients -->
+        <h2>Liste des clients</h2>
+        <div id="clients-list">
+            <p>Chargement des clients...</p>
+        </div>
     </div>
+
+    <script src="gestion_client.js"></script>
 </body>
 </html>

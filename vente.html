@@ -5,6 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vente</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Terminal de vente */
+        .vente-terminal-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .vente-terminal-left {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            margin-bottom: 2rem;
+            max-width: 520px;
+            min-width: 350px;
+            flex: 1 1 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .vente-terminal-left label {
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+        .vente-terminal-left input[type="text"],
+        .vente-terminal-left input[type="number"] {
+            width: 100%;
+            padding: 0.7rem;
+            font-size: 1.1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 0.8rem;
+        }
+        .vente-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .vente-actions button {
+            flex: 1;
+            font-size: 1.1rem;
+            padding: 0.9rem 0;
+            border-radius: 8px;
+        }
+        .vente-client-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .vente-client-info label {
+            min-width: 60px;
+        }
+        .vente-client-info input {
+            flex: 1;
+        }
+        .reduction-section {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
+        .reduction-section input[type="number"] {
+            width: 90px;
+            padding: 0.5rem;
+        }
+        .reduction-section button {
+            background: #ffc107;
+            color: #222;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .reduction-section button:hover {
+            background: #e0a800;
+        }
+        .vente-terminal-right {
+            background: #222;
+            color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            margin-bottom: 2rem;
+            min-width: 420px;
+            max-width: 700px;
+            flex: 2 1 500px;
+        }
+        .vente-terminal-right h2 {
+            color: #fff;
+            margin-top: 0;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+        .vente-terminal-right table {
+            background: #f8f9fa;
+            color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+        .vente-terminal-right th, .vente-terminal-right td {
+            font-size: 1.15rem;
+            padding: 0.7rem 0.9rem;
+        }
+        .vente-terminal-right th {
+            background: #007bff;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .vente-terminal-right td input[type="number"] {
+            width: 60px;
+        }
+        .vente-summary {
+            font-size: 1.25rem;
+            margin: 1.2rem 0 0.5rem 0;
+        }
+        .vente-summary p {
+            margin: 0.2rem 0;
+        }
+        @media (max-width: 1100px) {
+            .vente-terminal-wrapper {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .vente-terminal-left, .vente-terminal-right {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+        @media (max-width: 700px) {
+            .vente-terminal-left, .vente-terminal-right {
+                padding: 1rem;
+            }
+            .vente-terminal-right th, .vente-terminal-right td {
+                font-size: 1rem;
+                padding: 0.4rem 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -18,179 +163,92 @@
     </nav>
 
     <div class="container">
-        <h1>Vente</h1>
-        <form id="sales-form" onsubmit="addToTable(event)">
-            <label for="product-name">Article :</label>
-            <input type="text" id="product-name" placeholder="Article" required>
+        <h1 style="text-align:center;margin-bottom:2rem;">Terminal de Vente</h1>
+        <div class="vente-terminal-wrapper">
+            <div class="vente-terminal-left">
+                <form id="sales-form" onsubmit="addToTable(event)">
+                    <label for="product-name">Article :</label>
+                    <input type="text" id="product-name" placeholder="Article" required autofocus>
 
-            <label for="product-price">Prix (en $) :</label>
-            <input type="number" id="product-price" placeholder="Prix" required>
+                    <label for="product-price">Prix (en $) :</label>
+                    <input type="number" id="product-price" placeholder="Prix" min="0" step="0.01" required>
 
-            <label for="product-quantity">Quantité :</label>
-            <input type="number" id="product-quantity" placeholder="Quantité" required>
+                    <label for="product-quantity">Quantité :</label>
+                    <input type="number" id="product-quantity" placeholder="Quantité" min="1" required>
 
-            <div class="form-buttons">
-                <button type="submit">Ajouter au panier</button>
+                    <div class="vente-actions">
+                        <button type="submit">Ajouter</button>
+                        <button type="button" onclick="resetForm()">Effacer</button>
+                    </div>
+                </form>
+                <div class="vente-client-info">
+                    <label for="client-name">Client :</label>
+                    <input type="text" id="client-name" placeholder="Nom du client">
+                </div>
+                <div class="reduction-section">
+                    <label for="discount">Réduction (%) :</label>
+                    <input type="number" id="discount" placeholder="0" min="0" max="100">
+                    <button type="button" onclick="appliquerReduction()">Appliquer la réduction</button>
+                </div>
+                <div class="vente-actions">
+                    <button onclick="printInvoice()">Imprimer le ticket</button>
+                    <button type="button" onclick="resetTable()">Vider le panier</button>
+                    <button type="button" onclick="validerPaiement()" id="valider-paiement-btn" style="background:#28a745;color:#fff;">Valider le paiement</button>
+                </div>
             </div>
-        </form>
-
-        <div style="margin-top: 2rem;">
-            <h2>Produits achetés</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Article</th>
-                        <th>Prix unitaire ($)</th>
-                        <th>Quantité</th>
-                        <th>Total ($)</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="sales-table-body">
-                    <!-- Les produits ajoutés apparaîtront ici -->
-                </tbody>
-            </table>
-            <p><strong>Total général :</strong> <span id="grand-total">0.00</span> $</p>
-            <label for="discount">Réduction (%) :</label>
-            <input type="number" id="discount" placeholder="0" min="0" max="100" onchange="applyDiscount()">
-            <p><strong>Total après réduction :</strong> <span id="discounted-total">0.00</span> $</p>
-            <label for="client-name">Nom du client :</label>
-            <input type="text" id="client-name" placeholder="Nom du client">
-            <button onclick="printInvoice()">Imprimer la facture</button>
+            <div class="vente-terminal-right">
+                <h2>Panier</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>PU ($)</th>
+                            <th>Qté</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="sales-table-body">
+                        <!-- Les produits ajoutés apparaîtront ici -->
+                    </tbody>
+                </table>
+                <div class="vente-summary">
+                    <p><strong>Total général :</strong> <span id="grand-total">0.00</span> $</p>
+                    <p><strong>Total après réduction :</strong> <span id="discounted-total">0.00</span> $</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Section Facture -->
+        <!-- Ticket de caisse style supermarché -->
         <div id="invoice" style="display: none;">
-            <h2>Facture</h2>
-            <p><strong>Nom du client :</strong> <span id="invoice-client-name"></span></p>
-            <div id="invoice-details">
-                <!-- Les informations de la facture seront générées ici -->
+            <div class="supermarche-ticket">
+                <div class="supermarche-ticket-header">SUPERMARCHÉ - TICKET DE CAISSE</div>
+                <div style="margin-bottom:1rem;">
+                    <strong>Client :</strong> <span id="invoice-client-name"></span>
+                </div>
+                <table class="supermarche-ticket-table">
+                    <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>PU</th>
+                            <th>Qté</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-details">
+                        <!-- Les informations de la facture seront générées ici -->
+                    </tbody>
+                </table>
+                <div>
+                    <span id="invoice-discount-row"></span>
+                </div>
+                <div class="supermarche-ticket-total">
+                    Total à payer : <span id="invoice-grand-total"></span> $
+                </div>
             </div>
-            <p><strong>Total général :</strong> <span id="invoice-grand-total"></span> $</p>
         </div>
     </div>
 
-    <script>
-        const salesTableBody = document.getElementById('sales-table-body');
-        const grandTotalElement = document.getElementById('grand-total');
-        const discountedTotalElement = document.getElementById('discounted-total');
-        const invoiceDetails = document.getElementById('invoice-details');
-        const invoiceGrandTotal = document.getElementById('invoice-grand-total');
-        const clientNameInput = document.getElementById('client-name');
-        const invoiceClientName = document.getElementById('invoice-client-name');
-
-        function addToTable(event) {
-            event.preventDefault();
-
-            // Récupérer les valeurs du formulaire
-            const productName = document.getElementById('product-name').value;
-            const productPrice = parseFloat(document.getElementById('product-price').value);
-            const productQuantity = parseInt(document.getElementById('product-quantity').value);
-
-            // Calculer le total pour cet article
-            const total = productPrice * productQuantity;
-
-            // Ajouter une nouvelle ligne au tableau
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${productName}</td>
-                <td>${productPrice.toFixed(2)}</td>
-                <td><input type="number" value="${productQuantity}" min="1" onchange="updateRowTotal(this)"></td>
-                <td class="row-total">${total.toFixed(2)}</td>
-                <td><button onclick="removeRow(this)">Supprimer</button></td>
-            `;
-            salesTableBody.appendChild(row);
-
-            // Mettre à jour le total général
-            updateGrandTotal();
-
-            // Réinitialiser le formulaire
-            document.getElementById('sales-form').reset();
-        }
-
-        function updateRowTotal(input) {
-            const row = input.closest('tr');
-            const price = parseFloat(row.children[1].textContent);
-            const quantity = parseInt(input.value);
-            const totalCell = row.children[3];
-
-            // Mettre à jour le total pour cette ligne
-            const total = price * quantity;
-            totalCell.textContent = total.toFixed(2);
-
-            // Mettre à jour le total général
-            updateGrandTotal();
-        }
-
-        function updateGrandTotal() {
-            let grandTotal = 0;
-            const rows = salesTableBody.querySelectorAll('tr');
-            rows.forEach(row => {
-                const rowTotal = parseFloat(row.children[3].textContent);
-                grandTotal += rowTotal;
-            });
-            grandTotalElement.textContent = grandTotal.toFixed(2);
-
-            // Appliquer la réduction si elle est définie
-            applyDiscount();
-        }
-
-        function applyDiscount() {
-            const discount = parseFloat(document.getElementById('discount').value) || 0;
-            const grandTotal = parseFloat(grandTotalElement.textContent);
-
-            // Calculer le total après réduction
-            const discountedTotal = grandTotal - (grandTotal * discount / 100);
-            discountedTotalElement.textContent = discountedTotal.toFixed(2);
-        }
-
-        function removeRow(button) {
-            const row = button.closest('tr');
-            row.remove();
-
-            // Mettre à jour le total général
-            updateGrandTotal();
-        }
-
-        function printInvoice() {
-            // Récupérer le nom du client
-            const clientName = clientNameInput.value;
-            invoiceClientName.textContent = clientName || "Non spécifié";
-
-            // Générer les informations de la facture
-            invoiceDetails.innerHTML = '';
-            const rows = salesTableBody.querySelectorAll('tr');
-            rows.forEach(row => {
-                const productName = row.children[0].textContent;
-                const productPrice = row.children[1].textContent;
-                const productQuantity = row.children[2].querySelector('input').value;
-                const productTotal = row.children[3].textContent;
-
-                const detail = document.createElement('div');
-                detail.style.display = 'flex';
-                detail.style.flexDirection = 'column';
-                detail.style.marginBottom = '0.5rem';
-                detail.innerHTML = `
-                    <p><strong>Article :</strong> ${productName}</p>
-                    <p><strong>Prix unitaire :</strong> ${productPrice} $</p>
-                    <p><strong>Quantité :</strong> ${productQuantity}</p>
-                    <p><strong>Total :</strong> ${productTotal} $</p>
-                `;
-                invoiceDetails.appendChild(detail);
-            });
-
-            // Mettre à jour le total général dans la facture
-            invoiceGrandTotal.textContent = discountedTotalElement.textContent;
-
-            // Afficher uniquement la facture pour l'impression
-            const printContent = document.getElementById('invoice').innerHTML;
-            const originalContent = document.body.innerHTML;
-
-            document.body.innerHTML = printContent;
-            window.print();
-            document.body.innerHTML = originalContent;
-            window.location.reload();
-        }
-    </script>
+    <script src="vente.Js"></script>
 </body>
 </html>

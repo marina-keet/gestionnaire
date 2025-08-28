@@ -3,16 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Accueil - ERP Gestion Vente</title>
+    
+    <!-- Lien vers le fichier CSS externe -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Styles internes pour la mise en page du dashboard -->
+    <style>
+        /* En-tête du tableau de bord avec logo et titre */
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .dashboard-header .logo-image {
+            width: 60px;
+            height: 60px;
+        }
+        .dashboard-header .logo-name {
+            font-size: 2rem;
+            color: #007bff;
+        }
+
+        /* Conteneur des cartes statistiques */
+        .dashboard-summary {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Style des cartes statistiques individuelles */
+        .dashboard-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 1.5rem 2rem;
+            min-width: 200px;
+            flex: 1 1 200px;
+            text-align: center;
+        }
+        .dashboard-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #007bff;
+            font-size: 1.2rem;
+        }
+        .dashboard-card .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        /* Conteneur des boutons principaux de navigation */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .button-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            font-weight: 600;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Pied de page du dashboard */
+        .dashboard-footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: #888;
+            font-size: 1rem;
+        }
+
+        /* Styles pour l'en-tête ERP (infos société et coordonnées) */
+        .erp-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        .erp-header .erp-company {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .erp-header .erp-infos {
+            text-align: right;
+            color: #444;
+            font-size: 1rem;
+        }
+
+        /* Titre principal du dashboard */
+        .erp-dashboard-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Styles responsives pour écrans < 900px */
+        @media (max-width: 900px) {
+            .dashboard-summary {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .button-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation principale -->
     <nav>
         <div class="logo">
             <img src="logo.png" alt="Logo" class="logo-image">
-            <span class="logo-name">Gestion Vente</span>
+            <span class="logo-name">ERP Gestion Vente</span>
         </div>
         <div class="nav-links">
+            <!-- Liens de navigation -->
             <a href="index.html">Accueil</a>
             <a href="produits.html">Produits</a>
             <a href="suivi_ventes.html">Suivi des ventes</a>
@@ -20,14 +146,50 @@
             <a href="gestion_clients.html">Gestion de clients</a>
             <a href="tableau_bord.html">Tableau de bord</a>
             <a href="vente.html">Vente</a>
+            <a href="facture.html">Facture</a>
+            <a href="#" onclick="deconnexion()" style="color:#dc3545;font-weight:bold;">Déconnexion</a>
         </div>
     </nav>
 
     <div class="container">
-        <h1>Bienvenue</h1>
-        <p>Bienvenue dans le système de gestion de vente. Utilisez les boutons ci-dessous pour accéder aux différentes sections :</p>
-        
-        <!-- Boutons pour chaque page -->
+        <!-- En-tête ERP avec informations de contact -->
+        <div class="erp-header">
+            <div class="erp-infos">
+                <div>Adresse : 123 Rue du Commerce, Paris</div>
+                <div>Tél : 01 23 45 67 89</div>
+                <div>Email : contact@erpvente.com</div>
+            </div>
+        </div>
+
+        <!-- Titre principal -->
+        <div class="erp-dashboard-title">Bienvenue sur votre ERP de gestion de vente</div>
+        <p style="text-align:center;">Accédez rapidement à toutes les fonctionnalités de gestion commerciale :</p>
+
+        <!-- Cartes résumant les statistiques principales -->
+        <div class="dashboard-summary">
+            <div class="dashboard-card">
+                <h3>Produits</h3>
+                <div class="card-value" id="card-produits">120</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Ventes</h3>
+                <div class="card-value" id="card-ventes">350</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Stock</h3>
+                <div class="card-value" id="card-stock">1 200</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Clients</h3>
+                <div class="card-value" id="card-clients">85</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Factures</h3>
+                <div class="card-value" id="card-factures">60</div>
+            </div>
+        </div>
+
+        <!-- Boutons rapides vers les principales pages -->
         <div class="button-container">
             <button onclick="location.href='produits.html'">Produits</button>
             <button onclick="location.href='suivi_ventes.html'">Suivi des ventes</button>
@@ -35,7 +197,16 @@
             <button onclick="location.href='gestion_clients.html'">Gestion de clients</button>
             <button onclick="location.href='tableau_bord.html'">Tableau de bord</button>
             <button onclick="location.href='vente.html'">Vente</button>
+            <button onclick="location.href='facture.html'">Facture</button>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="dashboard-footer">
+            &copy; 2024 Gestion Vente - Tous droits réservés.
         </div>
     </div>
+
+    <!-- Script JavaScript externe -->
+    <script src="index.js"></script>
 </body>
 </html>
